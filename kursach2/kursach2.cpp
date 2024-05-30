@@ -173,14 +173,16 @@ int averageStip(List<Information> list) {
 }
 
 //создание списка студентов со стипендией, ниже средней в алфавитном порядке
-List<string> studentsWithLowStip(List<Information> list) {
+List<string> studentsWithLowStip(List<Information> list, int group) {
     List<string> listResult;
     int average = averageStip(list);
     for (int i = 0; i < list.count(); i++) {
         if (list.elementAt(i).stipend >= average) {
             continue;
         }
-        listResult.add(list.elementAt(i).name);
+        if (list.elementAt(i).group == group) {
+            listResult.add(list.elementAt(i).name);
+        }
     }
     for (int i = 0; i < listResult.count(); i++) {
         string temp = listResult.elementAt(i);
@@ -487,7 +489,7 @@ int main() {
     cout << "3 - Редактирование данных студента\n";
     cout << "4 - Вывести информацию о студенте\n";
     cout << "5 - Вывести информацию о всех студентах\n";
-    cout << "6 - Вывод списка студентов со стипендией, ниже средней, в алфавитном порядке\n";
+    cout << "6 - Вывод списка студентов заданной группы со стипендией, ниже средней, в алфавитном порядке\n";
     cout << "\n\tРАБОТА С ГРУППАМИ\n";
     cout << "7 - Добавление группы студентов\n";
     cout << "8 - Удаление группы студентов\n";
@@ -569,8 +571,11 @@ int main() {
                 outputAll(listOfStudents);
                 break;
             case 6:
+                cout << "Введите номер группы: ";
+                cin >> group;
+                cout << endl;
                 cout << "Имена студентов со стипендией, ниже средней по потоку:" << endl;
-                outputAlphabet(studentsWithLowStip(listOfStudents));
+                outputAlphabet(studentsWithLowStip(listOfStudents, group));
                 break;
             case 7:
                 cout << "Введите количество студентов, добавляемых в группу: ";
