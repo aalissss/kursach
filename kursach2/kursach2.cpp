@@ -162,6 +162,9 @@ struct List {
 //средняя стипендия по потоку
 int averageStip(List<Information> list) {
     int sumStipend = 0;
+    if (list.count() == 0) {
+        return 0;
+    }
     for (int i = 0; i < list.count(); i++) {
         sumStipend += list.elementAt(i).stipend;
     }
@@ -488,7 +491,7 @@ int main() {
     cout << "\n\tРАБОТА С ГРУППАМИ\n";
     cout << "7 - Добавление группы студентов\n";
     cout << "8 - Удаление группы студентов\n";
-    cout << "9 - Редактирование номера группы\n";//!!!!!!!!!!!!!!!!!!!!
+    cout << "9 - Редактирование номера группы\n";
     cout << "10 - Вывести информацию о студентах группы\n";
     cout << "\n\tРАБОТА С ФАЙЛАМИ\n";
     cout << "11 - Файловый ввод данных о студентах\n";
