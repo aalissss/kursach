@@ -207,10 +207,11 @@ void removeGroup(int group, List<Information>& list) {
 }
 
 //удаление студента
-void removeStudent(List<Information> list, int id) {
+void removeStudent(List<Information>& list, int id) {
     for (int j = 0; j < list.count(); j++) {
         if (list.elementAt(j).id == id) {
             list.removeAt(j);
+            j--;
         }
     }
 }
