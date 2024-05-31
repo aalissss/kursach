@@ -267,7 +267,6 @@ void redactInformation(List<Information>& list, int id) {
             Information newinfo = list.elementAt(j);
             int value;
             string fio, f, i, o;
-            cin >> num;
             switch (num) {
             case 1:
                 cout << "Введите новое ФИО: ";
@@ -321,24 +320,60 @@ void redactGroup(List<Information>& list, int group) {
 }
 
 //фильтрация по заданному параметру
-List<Information> filterStudents(List<Information> list, string parameter, string value) {
+List<Information> filterStudents(List<Information> list, string parameter) {
     List<Information> result;
-    for (int i = 0; i < list.count(); i++) {
-        Information information = list.elementAt(i);
-        if (parameter == "name" && information.name == value) {
-            result.add(information);
+    int value;
+    string name;
+    cout << "Введите данные: ";
+    if (parameter == "name") {
+        cin.ignore();
+        getline(cin, name);
+        for (int i = 0; i < list.count(); i++) {
+            if (list.elementAt(i).name == name) {
+                result.add(list.elementAt(i));
+            }
         }
-        else if (parameter == "group" && information.group == toint(value)) {
-            result.add(information);
+    }
+    else if (parameter == "group") {
+        cin >> value;
+        for (int i = 0; i < list.count(); i++) {
+            if (list.elementAt(i).group == value) {
+                result.add(list.elementAt(i));
+            }
         }
-        else if (parameter == "marks" && information.marks == tointArr(value)) {
-            result.add(information);
+    }
+    else if (parameter == "marks") {
+        int Arr[5];
+        for (int i = 0; i < 5; i++) {
+            cin >> Arr[i];
         }
-        else if (parameter == "stipend" && information.stipend == toint(value)) {
-            result.add(information);
+        for (int i = 0; i < list.count(); i++) {
+            bool flag = true;
+            for (int j = 0; j < 5; j++) {
+                if (list.elementAt(i).marks[j] != Arr[j]) {
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag) {
+                result.add(list.elementAt(i));
+            }
         }
-        else if (parameter == "year" && information.yearOfBirth == toint(value)) {
-            result.add(information);
+    }
+    else if (parameter == "stipend") {
+        cin >> value;
+        for (int i = 0; i < list.count(); i++) {
+            if (list.elementAt(i).stipend == value) {
+                result.add(list.elementAt(i));
+            }
+        }
+    }
+    else if (parameter == "year") {
+        cin >> value;
+        for (int i = 0; i < list.count(); i++) {
+            if (list.elementAt(i).yearOfBirth == value) {
+                result.add(list.elementAt(i));
+            }
         }
     }
     return result;
@@ -518,10 +553,8 @@ int main() {
                 cout << "4. Найти по стипендии (введите stipend)" << endl;
                 cout << "Выберите, по какому типу данных найти студента: ";
                 cin >> parameter;
-                cout << "Введите данные: ";
-                cin >> value;
                 cout << endl << endl;
-                outputAll(filterStudents(listOfStudents, parameter, value));
+                outputAll(filterStudents(listOfStudents, parameter));
                 cout << "Введите ID подходящего для удаления студента";
                 cin >> id;
                 removeStudent(listOfStudents, id);
@@ -534,20 +567,19 @@ int main() {
                 cout << "4. Найти по стипендии (введите stipend)" << endl;
                 cout << "Выберите, по какому типу данных найти студента: ";
                 cin >> parameter;
-                cout << "Введите данные: ";
-                cin >> value;
                 cout << endl << endl;
-                outputAll(filterStudents(listOfStudents, parameter, value));
+                outputAll(filterStudents(listOfStudents, parameter));
                 cout << endl;
                 cout << "Введите ID подходящего для редактирования студента: ";
                 cin >> id;
-                cout << endl << "Выберите (цифра) параметр для изменения: ";
+                cout << endl << "Выберите (цифра) параметр для изменения: " << endl;
                 cout << "1. Изменить ФИО" << endl;
                 cout << "2. Изменить группу" << endl;
                 cout << "3. Изменить оценки" << endl;
                 cout << "4. Изменить стипендию" << endl;
-                cout << "5. Изменить годрождения" << endl;
+                cout << "5. Изменить год рождения" << endl;
                 redactInformation(listOfStudents, id);
+                cout << "Данные обновлены" << endl;
                 break;
             case 4:
                 cout << "1. Найти по ФИО (введите name)" << endl;
@@ -556,11 +588,8 @@ int main() {
                 cout << "4. Найти по стипендии (введите stipend)" << endl;
                 cout << "Выберите, по какому типу данных найти студента: ";
                 cin >> parameter;
-                cout << "Введите данные: ";
-                cin >> value;
-                cout << endl << endl;
                 cout << "Все подходящие по критерию студенты:" << endl;
-                outputAll(filterStudents(listOfStudents, parameter, value));
+                outputAll(filterStudents(listOfStudents, parameter));
                 break;
             case 5:
                 cout << "Информация о всех студентах потока:" << endl;
@@ -597,9 +626,7 @@ int main() {
                 cout << "Выберите, по какому типу данных найти студента: ";
                 cin >> parameter;
                 cout << "Введите данные: ";
-                cin >> value;
-                cout << endl << endl;
-                outputAll(filterStudents(listOfStudents, parameter, value));
+                outputAll(filterStudents(listOfStudents, parameter));
                 cout << "Введите группу подходящую для редактирования: ";
                 cin >> group;
                 cout << endl;
