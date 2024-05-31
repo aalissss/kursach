@@ -239,13 +239,9 @@ Information input() {
 
 //преобразование строки в число
 int toint(string str) {
-    int* arr = new int[str.size()];
-    for (int i = 0; i < str.size(); i++) {
-        arr[i] = str[i] - 48;
-    }
     int num = 0, k = 0;
     for (int i = str.size() - 1; i >= 0; i--, k++) {
-        num += arr[i] * pow(10, k);
+        num += (str[i] - 48) * pow(10, k);
     }
     return num;
 }
