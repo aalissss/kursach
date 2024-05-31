@@ -306,16 +306,16 @@ void redactInformation(List<Information>& list, int id) {
 
 //редактирование группы
 void redactGroup(List<Information>& list, int group) {
+    int value;
+    cout << "Введите новую группу: ";
+    cin >> value;
     for (int j = 0; j < list.count(); j++) {
         if (group == list.elementAt(j).group) {
             Information newinfo = list.elementAt(j);
-            int value;
-            cout << "Введите новую группу: ";
-            cin >> value;
             newinfo.group = value;
             list.removeAt(j);
             list.add(newinfo);
-            break;
+            j--;
         }
     }
 }
